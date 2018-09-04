@@ -5,9 +5,9 @@
  */
 package testbd;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +15,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BD {
     java.sql.Connection conn;
+    int idShow = 0;
+    ResultSet Data;
+    
 
-    public void BD(){
+    public BD(){
         //Server
         String driver = "com.mysql.cj.jdbc.Driver";
         String servername = "localhost";
@@ -37,39 +40,83 @@ public class BD {
         }
     }
     
-    public String GetData() {
+    public String GetData(boolean next) {
         //ListItems
         
         PreparedStatement pst=null;
         ResultSet rs = null;
         String Requete = "SELECT * FROM new_table";
+        String row = "";
         try
         {
-        pst = conn.prepareStatement(Requete, 1005, 1008);
-        //1005 == ResultSet.TYPE_SCROLL_SENSITIVE
-        //1008 == ResultSet.CONCUR_UPDATABLE
-        pst.clearParameters();
-        rs = pst.executeQuery();
-        
-        String header[] = new String[] { "id", "one", "two",
-            "three", "four", "five" };
-        DefaultTableModel dtm = new DefaultTableModel(0, 0);
-        dtm.setColumnIdentifiers(header);
-        ListItems.setModel(dtm);
-        while(rs.next()){
-            dtm.addRow(new Object[] { rs.getString(0), rs.getString(1), rs.getString(2),
-                             rs.getString(3), rs.getString(4) });
-        }
+            pst = conn.prepareStatement(Requete, 1005, 1008);
+            //1005 == ResultSet.TYPE_SCROLL_SENSITIVE
+            //1008 == ResultSet.CONCUR_UPDATABLE
+            pst.clearParameters();
+            rs = pst.executeQuery();
+
+            // Get values out of the ResultSet
+            if(rs.next() != false)
+            {
+                if(idShow != 0){
+                while(idShow != Integer.parseInt(rs.getString("id"))){
+                        rs.next();
+                    }
+                }
+
+                if(next){
+                    if(!rs.isLast() && idShow != 0 ){
+                        rs.next();
+                    }
+                }
+                else{
+                    if(!rs.isFirst()){
+                        rs.previous();
+                    }
+                }
+
+                idShow = Integer.parseInt(rs.getString("id"));
+                row = "id : " + rs.getString("id") + " one : " 
+                        + rs.getString("one") + " two : " + rs.getString("two") 
+                        + " three : " + rs.getString("three") + " four : " 
+                        + rs.getString("four") + " five : " + rs.getString("five");
+
+                }
+            
+            // Close ResultSet and PreparedStatement
+            rs.close();
+            pst.close();
         //ListItems.setListData();
         }
         catch(Exception e){
-            System.out.println("Connection ratée: "+e);
+            System.out.println("Erreur select "+e);
             System.exit(-1);
         }
-    }
-    
-    public void Create() {
         
+        return row;
+    }
+        
+    public void Create(int Id, String One, int Two, 
+            Date Three, int Four, double Five) {
+        String Requete = "INSERT INTO new_table(id,one,two,three,four,five) " + 
+                "values (?,?,?,?,?,?)";
+        try{
+            // create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = conn.prepareStatement(Requete);
+            preparedStmt.setInt(1, Id);
+            preparedStmt.setString(2, One);
+            preparedStmt.setInt(3, Two);
+            preparedStmt.setDate(4, Three);
+            preparedStmt.setInt(5, Four);  
+            preparedStmt.setDouble(6, Five); 
+            
+            // execute the preparedstatement
+            preparedStmt.execute();
+        }
+        catch(Exception e){
+            System.out.println("Erreur select "+e);
+            System.exit(-1);
+        }     
     }
     
     public void Edit() {
@@ -77,6 +124,20 @@ public class BD {
     }
     
     public void Delete() {
+        String sql = "DELETE FROM new_table WHERE id = ?";
+ 
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
+            // set the corresponding param
+            pstmt.setInt(1, idShow);
+            // execute the delete statement
+            pstmt.executeUpdate();
+            idShow = 0;
+ 
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

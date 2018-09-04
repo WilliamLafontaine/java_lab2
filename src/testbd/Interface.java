@@ -5,6 +5,11 @@
  */
 package testbd;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
 
 /**
  *
@@ -15,8 +20,13 @@ public class Interface extends javax.swing.JFrame {
     /**
      * Creates new form Interface
      */
+    BD bd;
+        
     public Interface() {
         initComponents();
+        
+        bd = new BD();
+        data.setText(bd.GetData(true));
     }
 
     /**
@@ -34,8 +44,15 @@ public class Interface extends javax.swing.JFrame {
         btnEditSt = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDeleteSt = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        ListItems = new javax.swing.JTable();
+        data = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        txtOne = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        txtTwo = new javax.swing.JTextField();
+        txtThree = new javax.swing.JTextField();
+        txtFour = new javax.swing.JTextField();
+        txtFive = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,30 +82,45 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnDeleteSt.setText("Supprimer avec ST");
-
-        ListItems.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "colonne1", "colonne2", "colonne3", "colonne4", "colonne5"
+        btnDeleteSt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteStActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(ListItems);
-        if (ListItems.getColumnModel().getColumnCount() > 0) {
-            ListItems.getColumnModel().getColumn(0).setResizable(false);
-            ListItems.getColumnModel().getColumn(1).setResizable(false);
-            ListItems.getColumnModel().getColumn(2).setResizable(false);
-            ListItems.getColumnModel().getColumn(3).setResizable(false);
-            ListItems.getColumnModel().getColumn(4).setResizable(false);
-            ListItems.getColumnModel().getColumn(5).setResizable(false);
-        }
+        });
+
+        data.setText("jLabel1");
+
+        jButton1.setText("previous");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("next");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        txtOne.setText("jTextField1");
+
+        txtId.setText("jTextField1");
+
+        txtTwo.setText("jTextField1");
+
+        txtThree.setText("jTextField1");
+
+        txtFour.setText("jTextField1");
+
+        txtFive.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
@@ -96,15 +128,36 @@ public class Interface extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(btnAdd))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGap(65, 65, 65)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEditSt)
                     .addComponent(btnEdit)
                     .addComponent(btnDelete)
                     .addComponent(btnDeleteSt))
                 .addGap(57, 57, 57))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jButton1)
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,21 +166,30 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddSt)
                     .addComponent(btnAdd))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditSt)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEdit)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnDeleteSt)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addGap(46, 46, 46))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(58, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(data)
+                .addGap(52, 52, 52)
+                .addComponent(btnEditSt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(8, 8, 8)
+                .addComponent(btnEdit)
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDeleteSt)
+                    .addComponent(txtOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(btnDelete)
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -142,8 +204,28 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAddStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(txtId.getText());
+        String One = txtOne.getText();
+        int Two = Integer.parseInt(txtTwo.getText());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+        LocalDate Three = LocalDate.parse(txtThree.getText(), formatter);
+        
+        bd.Create();
+        data.setText(bd.GetData(true));
     }//GEN-LAST:event_btnAddStActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        data.setText(bd.GetData(false));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        data.setText(bd.GetData(true));
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnDeleteStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStActionPerformed
+        bd.Delete();
+        data.setText(bd.GetData(true));
+    }//GEN-LAST:event_btnDeleteStActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,13 +263,20 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ListItems;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddSt;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteSt;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEditSt;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel data;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField txtFive;
+    private javax.swing.JTextField txtFour;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtOne;
+    private javax.swing.JTextField txtThree;
+    private javax.swing.JTextField txtTwo;
     // End of variables declaration//GEN-END:variables
 }
