@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 package testbd;
+
+import java.sql.Date;
+
 /**
  *
  * @author wil90
  */
-public class TestBd {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Interface frm = new Interface();
-        frm.setVisible(true);
-    }
-
+public class Person {
+    public int id;
+    public String Nom;
+    public int Age;
+    public Date Naissance;
+    public int Travails;
+    public double Argent;
 }

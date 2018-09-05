@@ -5,10 +5,8 @@
  */
 package testbd;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 
@@ -27,7 +25,7 @@ public class Interface extends javax.swing.JFrame {
         initComponents();
         
         bd = new BD();
-        data.setText(bd.GetData(true));
+        data.setText(bd.GetData(0));
     }
 
     /**
@@ -46,16 +44,27 @@ public class Interface extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnDeleteSt = new javax.swing.JButton();
         data = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        txtOne = new javax.swing.JTextField();
+        btnPrevious = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        txtNom = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
-        txtTwo = new javax.swing.JTextField();
-        txtThree = new javax.swing.JTextField();
-        txtFour = new javax.swing.JTextField();
-        txtFive = new javax.swing.JTextField();
+        txtAge = new javax.swing.JTextField();
+        txtNaissance = new javax.swing.JTextField();
+        txtTravails = new javax.swing.JTextField();
+        txtArgent = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btnAddSt.setText("Ajouter avec ST");
         btnAddSt.addActionListener(new java.awt.event.ActionListener() {
@@ -72,8 +81,18 @@ public class Interface extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Supprimer sans ST");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnEditSt.setText("Modifier avec ST");
+        btnEditSt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditStActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Modifier sans ST");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -89,74 +108,96 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        data.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         data.setText("jLabel1");
 
-        jButton1.setText("previous");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPrevious.setText("previous");
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPreviousActionPerformed(evt);
             }
         });
 
-        jButton2.setText("next");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnNext.setText("next");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnNextActionPerformed(evt);
             }
         });
 
-        txtOne.setText("1");
+        txtNom.setText("1");
 
         txtId.setText("1");
 
-        txtTwo.setText("1");
+        txtAge.setText("1");
 
-        txtThree.setText("10-10-1998");
+        txtNaissance.setText("10-10-1998");
 
-        txtFour.setText("1");
+        txtTravails.setText("1");
 
-        txtFive.setText("1");
+        txtArgent.setText("1");
+
+        jLabel1.setText("id");
+
+        jLabel2.setText("age");
+
+        jLabel3.setText("nom");
+
+        jLabel4.setText("naissance");
+
+        jLabel5.setText("travails");
+
+        jLabel6.setText("argent");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
                         .addComponent(btnAddSt)
                         .addGap(54, 54, 54)
                         .addComponent(btnAdd))
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 867, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtOne, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtThree, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFour, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFive, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnPrevious)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnNext)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditSt)
+                    .addComponent(btnEdit)
+                    .addComponent(btnDelete)
+                    .addComponent(btnDeleteSt))
+                .addGap(81, 81, 81))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jButton1)
-                                .addGap(37, 37, 37)
-                                .addComponent(jButton2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditSt)
-                            .addComponent(btnEdit)
-                            .addComponent(btnDelete)
-                            .addComponent(btnDeleteSt))))
+                            .addComponent(txtNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTravails, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtArgent, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -168,13 +209,20 @@ public class Interface extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddSt)
                             .addComponent(btnAdd))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(data)
-                        .addGap(84, 84, 84)
+                        .addGap(28, 28, 28)
+                        .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(76, 76, 76))
+                            .addComponent(btnPrevious)
+                            .addComponent(btnNext))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEditSt)
                         .addGap(40, 40, 40)
@@ -183,16 +231,17 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(btnDeleteSt)
                         .addGap(18, 18, 18)
                         .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 98, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtArgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTravails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(91, 91, 91))
         );
@@ -201,39 +250,69 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditActionPerformed
+        Person person = GetText();
+        
+        bd.Edit(person, false);
+        data.setText(bd.GetData(2));    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        Person person = GetText();
+        
+        bd.Create(person, false);
+        data.setText(bd.GetData(2));
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAddStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStActionPerformed
-        int id = Integer.parseInt(txtId.getText());
-        String One = txtOne.getText();
-        int Two = Integer.parseInt(txtTwo.getText());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH);
-        LocalDate Three = LocalDate.parse(txtThree.getText(), formatter);
-        System.out.println(Three);
-        int Four = Integer.parseInt(txtFour.getText());
-        Double Five = Double.parseDouble(txtFour.getText());
-        bd.Create(id,One,Two,java.sql.Date.valueOf(Three),Four,Five);
-        data.setText(bd.GetData(true));
+        Person person = GetText();
+        
+        bd.Create(person, true);
+        data.setText(bd.GetData(2));
     }//GEN-LAST:event_btnAddStActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        data.setText(bd.GetData(false));
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
+        data.setText(bd.GetData(1));
+    }//GEN-LAST:event_btnPreviousActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        data.setText(bd.GetData(true));
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        data.setText(bd.GetData(0));
+    }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnDeleteStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStActionPerformed
-        bd.Delete();
-        data.setText(bd.GetData(true));
+        bd.Delete(true);
+        data.setText(bd.GetData(2));
     }//GEN-LAST:event_btnDeleteStActionPerformed
 
+    private void btnEditStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStActionPerformed
+        Person person = GetText();
+        
+        bd.Edit(person, true);
+        data.setText(bd.GetData(2));
+    }//GEN-LAST:event_btnEditStActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        bd.Delete(false);
+        data.setText(bd.GetData(2));
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        bd.Close();
+    }//GEN-LAST:event_formWindowClosed
+
+    
+    private Person GetText(){
+        Person person = new Person();
+        
+        person.id = Integer.parseInt(txtId.getText());
+        person.Nom = txtNom.getText();
+        person.Age = Integer.parseInt(txtAge.getText());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.CANADA);
+        person.Naissance = java.sql.Date.valueOf(LocalDate.parse(txtNaissance.getText(), formatter));
+        person.Travails = Integer.parseInt(txtTravails.getText());
+        person.Argent = Double.parseDouble(txtArgent.getText());
+        
+        return person;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -276,14 +355,20 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteSt;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEditSt;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrevious;
     private javax.swing.JLabel data;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JTextField txtFive;
-    private javax.swing.JTextField txtFour;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtArgent;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtOne;
-    private javax.swing.JTextField txtThree;
-    private javax.swing.JTextField txtTwo;
+    private javax.swing.JTextField txtNaissance;
+    private javax.swing.JTextField txtNom;
+    private javax.swing.JTextField txtTravails;
     // End of variables declaration//GEN-END:variables
 }
